@@ -91,15 +91,15 @@ class HybridMatchingEngine:
         expanded_jd_skills = self._expand_skills(jd_skills)
 
         # ─── STEP 4A: Semantic Similarity Score ───────────────────────────────
-        resume_focus = " ".join(list(resume_skills))
+        MAX_LEN = 800
+        resume_focus = " ".join(list(resume_skills))[:300]
         resume_focus += " " + clean_resume[:500]
+
+        resume_focus = resume_focus[:MAX_LEN]
+        clean_jd = clean_jd[:MAX_LEN]
         if not resume_focus.strip():
             resume_focus = clean_resume[:1000]
 
-        print("---- DEBUG ----")
-        print("RESUME FOCUS:", resume_focus[:200])
-        print("JD:", clean_jd[:200])
-        print("----------------")
         semantic_score = self._compute_semantic_score(
             self.preprocessor.normalize_for_embedding(resume_focus),
             self.preprocessor.normalize_for_embedding(clean_jd),
