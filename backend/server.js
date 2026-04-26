@@ -28,7 +28,10 @@ if (!fs.existsSync(uploadDir)) {
 // ─── Security Middleware ─────────────────────────────────────────────────────
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: [
+    "http://localhost:3000",
+    "https://resume-matching-six.vercel.app"
+  ],
   credentials: true,
 }));
 
