@@ -35,6 +35,10 @@ MODEL_VERSION = "2.0-hybrid"
 
 # ─── Routes ───────────────────────────────────────────────────────────────────
 
+@app.route("/", methods=["GET"])
+def home():
+    return {"status": "NLP service running"}
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({
