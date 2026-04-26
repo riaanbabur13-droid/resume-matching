@@ -23,7 +23,7 @@ logger = logging.getLogger("nlp-service")
 
 # ─── Flask App ────────────────────────────────────────────────────────────────
 app = Flask(__name__)
-CORS(app, origins=os.getenv("ALLOWED_ORIGINS", "http://localhost:5000"))
+CORS(app, origins="*")
 
 # ─── Initialize Engine (once at startup) ──────────────────────────────────────
 logger.info("🚀 Initializing Hybrid Matching Engine...")
