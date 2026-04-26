@@ -135,7 +135,7 @@ Frontend runs at: `http://localhost:3000`
 ## 🧠 NLP Hybrid Scoring Model
 
 ```
-Final Score = (Semantic Score × 0.40) + (Skill Score × 0.40) + (Experience Score × 0.20)
+Final Score = (Semantic Score × 0.25) + (Skill Score × 0.55) + (Experience Score × 0.20)
 ```
 
 Components:
