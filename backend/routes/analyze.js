@@ -9,6 +9,7 @@ const router = express.Router();
 
 const NLP_SERVICE_URL = process.env.NLP_SERVICE_URL || 'http://localhost:8000';
 const NLP_TIMEOUT = 30000; // 30 seconds
+console.log("NLP URL:", NLP_SERVICE_URL);
 
 // ─── POST /api/analyze ───────────────────────────────────────────────────────
 router.post(
