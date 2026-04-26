@@ -10,7 +10,6 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
-from engine.matcher import HybridMatchingEngine
 
 load_dotenv()
 
@@ -27,7 +26,16 @@ CORS(app, origins="*")
 
 # ─── Initialize Engine (once at startup) ──────────────────────────────────────
 logger.info("🚀 Initializing Hybrid Matching Engine...")
-engine = HybridMatchingEngine()
+engine = None
+
+def get_engine():
+    global engine
+    if engine is None:
+        logger.info("🚀 Initializing Hybrid Matching Engine...")
+        from engine.matcher import HybridMatchingEngine
+        engine = HybridMatchingEngine()
+        logger.info("✅ Engine ready.")
+    return engine
 logger.info("✅ Engine ready.")
 
 MODEL_VERSION = "2.0-hybrid"
@@ -37,7 +45,7 @@ MODEL_VERSION = "2.0-hybrid"
 
 @app.route("/", methods=["GET"])
 def home():
-    return {"status": "NLP service running"}
+    return "OK", 200
 
 @app.route("/health", methods=["GET"])
 def health():
@@ -72,11 +80,12 @@ def analyze():
         return jsonify({"error": "job_description is required and must be meaningful"}), 400
 
     try:
-        result = engine.analyze(
+        engine_instance = get_engine()
+        result = engine_instance.analyze(
             resume_text=resume_text,
             job_description=job_description,
             job_title=job_title,
-        )
+    )
 
         elapsed_ms = int((time.time() - start) * 1000)
         logger.info(
